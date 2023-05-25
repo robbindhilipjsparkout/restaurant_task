@@ -36,8 +36,10 @@ Route::controller(RestaurantController::class)->group(function(){
     Route::get('/restaurantcreate', 'create')->name('restaurantcreate');
     Route::post('/restaurantstore', 'store')->name('restaurantstore');
     
-     Route::get('/restaurantedit/{id}/edit','edit')->name('restaurantedit');
-     Route::put('/restaurantupdate/{id}', 'update')->name('restaurantupdate');
+    //  Route::get('/restaurantedit/{id}/edit','edit')->name('restaurantedit');
+    //  Route::put('/restaurantupdate/{id}', 'update')->name('restaurantupdate');
+
+     Route::put('/restaurantupdate/{id}',  'update')->name('restaurantupdate');
 
      Route::delete('restaurantdelete/{id}',  'destroy')->name('restaurantdelete');
 

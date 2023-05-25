@@ -4,6 +4,10 @@
 @include('layouts.header')
 @include('layouts.spblock2')  
 
+<form action="{{ route('restaurantshow') }}" method="GET">
+        <input type="text" name="search" placeholder="Search restaurants" value="{{ $search }}">
+        <button type="submit">Search</button>
+    </form>
 
 
 
@@ -29,7 +33,11 @@
 margin-left:50px;
 margin-right:50px;
 }
+.custom{
 
+    margin-top:-15px; 
+
+}
 
 
 
@@ -64,12 +72,13 @@ margin-right:50px;
                               <a href="{{url('restaurant')}}"><button type="button" class="btn btn-primary "> {{ __('Restaurants') }} </button></a>
                             </div> -->
                                <div class="table-responsive" id="tb">
-                                    <table class="table table-bordered table-hover ">
+                                    <table class="table table-bordered table-hover "id="tab" >
                                         <thead class=>
 
         <tr>
 
         <th scope="col" class="text-center bg-danger rounded-2 text-wrap text-uppercase">Sno:</th>
+        <!-- <th scope="col" class="text-center bg-danger rounded-2 text-wrap text-uppercase">service<br>type</th> -->
         <th scope="col" class="text-center bg-danger rounded-2 text-wrap text-uppercase">restaurant<br>name</th>
         <th scope="col" class="text-center bg-danger rounded-2 text-wrap text-uppercase">email</th>
         <th scope="col" class="text-center bg-danger rounded-2 text-wrap text-uppercase">mobile<br>number</th>
@@ -92,6 +101,7 @@ margin-right:50px;
     @foreach($restaurants as $restaurant)
         <tr>
         <td>{{$restaurant->id}}</td>
+      <!-- <td>{{$restaurant->delivery_service_type}} -->
         <td>{{$restaurant->restaurant_name}}</td>
         <td>{{$restaurant->email}}</td> 
         <td>{{$restaurant->mobile_number}}</td>
@@ -105,9 +115,77 @@ margin-right:50px;
     
 
         <td><span>
-            <a href="{{route('restaurantedit',$restaurant->id)}}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a> 
+            <!-- <a href="{{route('restaurantupdate',$restaurant->id)}}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a>  -->
+          
+            <i class="fa fa-pencil color-muted m-r-5" data-toggle="modal" data-target="#EdittaskModal{{$restaurant->id}}" style="cursor:pointer" ></i>
 
-            <br><br>
+
+
+<!--model popup for Edit-->
+<div class="modal fade" id="EdittaskModal{{$restaurant->id}}" tabindex="-1" role="dialog" aria-labelledby="EdittaskModalLabel" aria-hidden="true" >
+    <div class="modal-dialog bg-danger custom" role="document">
+        <!-- <div class="modal-content"> -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="EdittaskModalLabel">Edit Restaurant </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+  
+            <!-- <div class="modal-footer"> -->
+         
+                  <form action="{{route('restaurantupdate',$restaurant->id)}}" method="POST" id="update-text-form" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    
+                   
+                                        <input id="restaurant_name" value="{{ $restaurant->restaurant_name }}" type="text" class="form-control @error('title') is-invalid @enderror" name="restaurant_name" value="{{ old('restaurant_name') }}" placeholder="restaurant_name">
+                                        @error('restaurant_name')
+                                        <div id="error" class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+<br>
+
+                                        <label for="image">Select an image:</label>
+                                        <img src="{{asset('images/'. $restaurant->restaurant_logo)}}" width="100px" height="100px" class="rounded border"><br><br>
+                                        <input id="restaurant_logo" type="file" class="form-control @error('image') is-invalid @enderror" name="restaurant_logo" placeholder="restaurant_logo">
+                                        @error('restaurant_logo')
+                                        <div id="error" class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                        <br>
+                                        
+                                        <textarea id="restaurant_description" class="form-control @error('restaurant_description') is-invalid @enderror" name="restaurant_description">{{$restaurant->restaurant_description}} </textarea>
+                                        @error('restaurant_description')
+                                        <div id="error" class="alert alert-danger">{{ $message }}</div>
+                                        @enderror
+                                        <br>
+
+                                  
+                                        <label for="status">Current Status:  {{$restaurant->status}}</label>
+                                        <select class="form-control selectpicker" name="status" id="status">
+                                       
+                                            <option>--Select--</option>
+                                            @foreach( $restaurantstatus as $status)
+                                      <option value="{{$status->status}}">{{$status->status}}</option>                     
+                                       @endforeach
+                                        </select>
+                                
+
+                               <br><br>
+                    <button type="submit" class="btn btn-danger" >Edit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+                    </form>
+                    
+               </div>      
+            </div> 
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <i class="fa fa-close color-danger" data-toggle="modal" data-target="#deleteUserModal{{$restaurant->id}}" style="cursor:pointer"></i>
 
@@ -146,8 +224,12 @@ margin-right:50px;
     </tbody>
     </table>
 
-    <a href="{{url('restaurant')}}" class="color:white">  <button type="button" class="btn btn-primary"  style="margin-bottom:100px">  {{ __('Back') }}
+
+    {{$restaurants->appends(['search' => $search])->onEachSide(1)->links()}}
+
+    <a href="{{url('restaurant')}}" class="color:white">  <button type="button" class="btn btn-primary"  style="margin-bottom:50px">  {{ __('Back') }}
                                 </button> </a>
+
 
                                 </div>
                             </div>

@@ -10,6 +10,7 @@ use App\Models\Restaurant;
 use App\Models\DeliveryServiceType;
 use App\Models\RestaurantStatus;
 use DB;
+use App\Rules\CustomValidationRule;
 use Auth;
 
 class RestaurantController extends Controller
@@ -46,13 +47,27 @@ class RestaurantController extends Controller
      * 
      */
 
+
+//      public function messages( Request $request)
+
+
+// {
+//     $validated = $request->validate([ 
+   
+//         'restaurant_name.required' => 'A restaurant_name is required',
+//         // 'body.required' => 'A message is required',
+//     ]);
+//     return view('restaurant.restaurant_create',  compact('validated'));
+// }
+
     public function store(Request $request)
     {
         // dd($request->all());
     
         $validated = $request->validate([
            
-            'restaurant_name' => 'required|string|regex:/^[A-Za-z\s]+$/',
+            'restaurant_name' => ['required','string','regex:/^[A-Za-z\s]+$/',new CustomValidationRule],
+           
             'email' => 'required|email|max:255',
             'mobile_number' => 'required|numeric',
             'secondary_mobile_number'=>'required|numeric',
@@ -65,6 +80,8 @@ class RestaurantController extends Controller
            
 
         ]);
+
+        
    
 
         info($request);
@@ -126,16 +143,28 @@ if($request->hasFile('restaurant_logo')){
 
 
 
-    public function show()
+    public function show(Request $request)
     
     {
      
-        $restaurants = Restaurant::get();
+
+    $restaurantstatus=RestaurantStatus::get();
+    
+    $search = $request->query('search');
+
+        $restaurants =Restaurant::where('restaurant_name', 'like', '%'.$search.'%')->paginate(5);
 
         // info($restaurants);
 
-        return view('restaurant.restaurant_show',  compact('restaurants'));
+        return view('restaurant.restaurant_show',  compact('restaurants', 'restaurantstatus', 'search'));
     }
+
+    // public function index()
+    // {
+    //     $restaurants = Restaurant::paginate(5); // Adjust the pagination limit as needed
+
+    //     return view('restaurants.restaurant_show', compact('restaurants'));
+    // }
 
 
     // public function feedback()
@@ -182,17 +211,17 @@ if($request->hasFile('restaurant_logo')){
 
 
 
-    public function edit($id)
-    {
-        info($id);
+    // public function edit($id)
+    // {
+    //     info($id);
 
-    $restaurants= Restaurant::where('id',$id)->first();
+    // $restaurants= Restaurant::where('id',$id)->first();
 
-    $restaurantstatus=RestaurantStatus::get();
+    // $restaurantstatus=RestaurantStatus::get();
 
-    return view('restaurant.restaurant_edit', compact('restaurants', 'restaurantstatus'));
+    // return view('restaurant.restaurant_edit', compact('restaurants', 'restaurantstatus'));
 
-    }
+    // }
 
     public function update($id,Request $request)
     {
@@ -210,6 +239,7 @@ if($request->hasFile('restaurant_logo')){
        
        // return redirect('restaurant')->with('message','restaurant Created successfully');
        return redirect()->route('restaurantshow')->with('message','Restaurant Updated Successfully');
+
     }
 
 

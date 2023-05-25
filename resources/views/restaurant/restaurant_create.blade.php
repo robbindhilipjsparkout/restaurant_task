@@ -144,7 +144,7 @@
                             <select class="form-control selectpicker" name="status" id="status">
                             <option>--Select--</option>
                             @foreach( $restaurantstatus as $status)
-                            <option value="{{$status->id}}">{{$status->status}}</option>                     
+                            <option value="{{$status->status}}">{{$status->status}}</option>                     
                             @endforeach
                             </select>   
                             </div>
