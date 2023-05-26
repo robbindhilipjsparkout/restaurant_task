@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantController;
+use App\Models\Restaurant;
+use App\Models\DeliveryServiceType;
+use App\Models\RestaurantStatus;
 
 
 /*
@@ -39,7 +42,7 @@ Route::controller(RestaurantController::class)->group(function(){
     //  Route::get('/restaurantedit/{id}/edit','edit')->name('restaurantedit');
     //  Route::put('/restaurantupdate/{id}', 'update')->name('restaurantupdate');
 
-     Route::put('/restaurantupdate/{id}',  'update')->name('restaurantupdate');
+    Route::put('/restaurantupdate/{id}',  'update')->name('restaurantupdate');
 
      Route::delete('restaurantdelete/{id}',  'destroy')->name('restaurantdelete');
 
@@ -58,3 +61,15 @@ Route::get('/', function(){
 
 
 Route::put('toggle/{id}', 'YourController@toggleActive')->name('toggle.active');
+
+
+
+Route::get('/my-table', function(){
+    $restaurantstatus=RestaurantStatus::get();
+
+        $restaurants =Restaurant::paginate(3);
+
+        // info($restaurants);
+
+        return view('test',  compact('restaurants', 'restaurantstatus'));
+});

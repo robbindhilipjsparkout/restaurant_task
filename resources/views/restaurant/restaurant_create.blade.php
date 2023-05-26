@@ -113,7 +113,7 @@
 
 
                             <div class="form-group">
-                                <input id="restaurant_website" type="url" class="form-control @error('restaurant_website') is-invalid @enderror" name="restaurant_website" value="{{ old('restaurant_website') }}"  placeholder="restaurant_website">
+                                <input id="restaurant_website" type="text" class="form-control @error('restaurant_website') is-invalid @enderror" name="restaurant_website" value="{{ old('restaurant_website') }}"  placeholder="restaurant_website">
                                 @error('restaurant_website')
                                 <div   id="error" class="alert alert-danger">{{ $message }}</div>
                             @enderror
@@ -122,7 +122,7 @@
 
 
                             <div class="form-group">
-                                <input id="restaurant_address" type="text" class="form-control @error('restaurant_address') is-invalid @enderror" name="restaurant_address" value="{{ old('restaurant_website') }}"  placeholder="restaurant_address">  
+                                <input id="restaurant_address" type="text" class="form-control @error('restaurant_address') is-invalid @enderror" name="restaurant_address" value="{{ old('restaurant_address') }}"  placeholder="restaurant_address">  
                                 @error('restaurant_address')
                                 <div   id="error"  class="alert alert-danger">{{ $message }}</div>
                             @enderror

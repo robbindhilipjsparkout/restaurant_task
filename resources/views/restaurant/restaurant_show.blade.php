@@ -3,11 +3,11 @@
 @include('layouts.style')
 @include('layouts.header')
 @include('layouts.spblock2')  
-
-<form action="{{ route('restaurantshow') }}" method="GET">
+<!-- 
+ <form action="{{ route('restaurantshow') }}" method="GET">
         <input type="text" name="search" placeholder="Search restaurants" value="{{ $search }}">
         <button type="submit">Search</button>
-    </form>
+    </form>  -->
 
 
 
@@ -30,8 +30,8 @@
 }
 #tb{
 
-margin-left:50px;
-margin-right:50px;
+margin-left:45px;
+margin-right:45px;
 }
 .custom{
 
@@ -58,7 +58,6 @@ margin-right:50px;
 </div>
 
 
-
 <br>
 <br>
                     <div>
@@ -72,7 +71,7 @@ margin-right:50px;
                               <a href="{{url('restaurant')}}"><button type="button" class="btn btn-primary "> {{ __('Restaurants') }} </button></a>
                             </div> -->
                                <div class="table-responsive" id="tb">
-                                    <table class="table table-bordered table-hover "id="tab" >
+                                    <table class="table table-bordered table-hover "id="myTable" >
                                         <thead class=>
 
         <tr>
@@ -115,13 +114,13 @@ margin-right:50px;
     
 
         <td><span>
-            <!-- <a href="{{route('restaurantupdate',$restaurant->id)}}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a>  -->
+            <!-- <a href="{{route('restaurantupdate',$restaurant->id)}}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil color-muted m-r-5"></i> </a>   -->
           
             <i class="fa fa-pencil color-muted m-r-5" data-toggle="modal" data-target="#EdittaskModal{{$restaurant->id}}" style="cursor:pointer" ></i>
 
-
-
 <!--model popup for Edit-->
+
+
 <div class="modal fade" id="EdittaskModal{{$restaurant->id}}" tabindex="-1" role="dialog" aria-labelledby="EdittaskModalLabel" aria-hidden="true" >
     <div class="modal-dialog bg-danger custom" role="document">
         <!-- <div class="modal-content"> -->
@@ -144,7 +143,7 @@ margin-right:50px;
                                         @error('restaurant_name')
                                         <div id="error" class="alert alert-danger">{{ $message }}</div>
                                         @enderror
-<br>
+                                        <br>
 
                                         <label for="image">Select an image:</label>
                                         <img src="{{asset('images/'. $restaurant->restaurant_logo)}}" width="100px" height="100px" class="rounded border"><br><br>
@@ -164,10 +163,10 @@ margin-right:50px;
                                         <label for="status">Current Status:  {{$restaurant->status}}</label>
                                         <select class="form-control selectpicker" name="status" id="status">
                                        
-                                            <option>--Select--</option>
-                                            @foreach( $restaurantstatus as $status)
-                                      <option value="{{$status->status}}">{{$status->status}}</option>                     
-                                       @endforeach
+                                        <option>--Select--</option>
+                                        @foreach( $restaurantstatus as $status)
+                                       <option value="{{$status->status}}">{{$status->status}}</option>                     
+                                        @endforeach
                                         </select>
                                 
 
@@ -186,10 +185,11 @@ margin-right:50px;
 
 
 
-
 <i class="fa fa-close color-danger" data-toggle="modal" data-target="#deleteUserModal{{$restaurant->id}}" style="cursor:pointer"></i>
 
 <!--model popup for delete-->
+
+
  <div class="modal fade" id="deleteUserModal{{$restaurant->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
 <div class="modal-dialog  bg-danger " role="document">
 <div class="modal-content">
@@ -225,7 +225,7 @@ margin-right:50px;
     </table>
 
 
-    {{$restaurants->appends(['search' => $search])->onEachSide(1)->links()}}
+    {{$restaurants->appends(['search' => $search])->onEachSide(1)->links()}} 
 
     <a href="{{url('restaurant')}}" class="color:white">  <button type="button" class="btn btn-primary"  style="margin-bottom:50px">  {{ __('Back') }}
                                 </button> </a>
@@ -238,3 +238,35 @@ margin-right:50px;
 
 
 
+
+                    <script>
+$(document).ready(function() {
+  $('#myTable').DataTable({
+        paging: false,   // Enable pagination
+        searching: true ,// Enable search/filtering
+        scrollX: true,
+        lengthChange : true, 
+        ordering: true,
+        sorting:true,
+        info: true, // Show information about the table
+     language: {
+    //info: "Show _MENU_ entries", // Customize the information text
+    infoEmpty: "No entries available", // Customize the empty table message
+    search: "Search:", // Customize the search input label
+    zeroRecords: "No matching records found", // Customize the no records found message
+  }
+    // More options...
+  });
+});
+
+
+</script>
+
+
+<!-- 
+ <script>
+    $(document).ready(function () {
+    $('#myTable').DataTable();
+});
+    </script>  -->
+    
