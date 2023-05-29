@@ -41,7 +41,7 @@
                 <div style="margin:50px 0px 0px 0px"  class="card-header text-center bg-danger rounded-2 text-wrap">{{ __('Create restaurant') }}</div>
 
                     <div class="card-body "> 
-                    <form method="POST" action="{{ route('restaurantstore')}}" style="margin-top:25px"  class=" login-input " enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('restaurantstore')}}" style="margin-top:25px" id="myForm" class=" login-input " enctype="multipart/form-data">
 
                         @csrf
 
@@ -95,9 +95,17 @@
                             <div class="form-group">
                             <label for="image">Select a image:</label>
                                 <input id="restaurant_logo" type="file" class="form-control @error('image') is-invalid @enderror" name="restaurant_logo"  placeholder="restaurant_logo	">  
-                                @error('restaurant_logo')
+                             <!-- @error('restaurant_logo')
                                 <div  id="error"  class="alert alert-danger">{{ $message }}</div>
                             @enderror
+                            @if($errors->has('restaurant_logo'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('restaurant_logo') }}
+                            </div>
+                        @endif -->
+                        <!-- <span id="imageError" ></span> -->
+                        <span id="restaurant_logo_error" style="color: red;" class="error-message"></span>
+
                             </div>
 
 
@@ -167,4 +175,39 @@
         </div>
       
     </div>
+
+    <script>
+$(document).ready(function() {
+    $('#myForm').submit(function(e) {
+        e.preventDefault(); // Prevent form submission
+
+        // Clear existing error message
+        $('#restaurant_logo_error').empty();
+
+        // Perform image validation
+        var valid = true;
+
+        // Example validation for the 'restaurant_logo' field
+        var restaurantLogo = $('#restaurant_logo')[0].files[0];
+        if (!restaurantLogo) {
+            $('#restaurant_logo_error').text('Restaurant Logo is required.');
+            valid = false;
+        } else {
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+            if (!allowedExtensions.exec(restaurantLogo.name)) {
+                $('#restaurant_logo_error').text('Invalid file type. Only JPG, JPEG, and PNG files are allowed.');
+                valid = false;
+            } else if (restaurantLogo.size > 2048 * 1024) {
+                $('#restaurant_logo_error').text('File size exceeds the maximum limit of 2MB.');
+                valid = false;
+            }
+        }
+
+        // Submit the form if validation passes
+        if (valid) {
+            $('#myForm').off('submit').submit();
+        }
+    });
+});
+</script>
 

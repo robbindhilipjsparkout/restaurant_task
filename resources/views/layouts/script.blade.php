@@ -5,7 +5,8 @@
         <script src="js/waypoints.min.js" type="text/javascript"></script>
         <script src="js/instafeed.min.js" type="text/javascript"></script> 
         <script src="js/custom.js" type="text/javascript"></script>
-         
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 

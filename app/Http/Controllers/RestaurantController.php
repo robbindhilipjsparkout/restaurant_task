@@ -51,7 +51,7 @@ class RestaurantController extends Controller
             'email' => 'required|email|max:255',
             'mobile_number' => 'required|numeric',
             'secondary_mobile_number'=>'required|numeric',
-            'restaurant_logo'=>'required|file|mimes:jpeg,png,jpg|max:10000',
+            'restaurant_logo'=>'required|mimes:jpeg,png,jpg|image|max:2048',
             'restaurant_description'=>'required|string|max:1000',
             'restaurant_website'=>'required|string|url',
             'restaurant_address'=>'required|string|regex:/^[a-zA-Z0-9\s\-]+$/',
