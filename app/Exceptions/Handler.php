@@ -54,14 +54,14 @@ class Handler extends ExceptionHandler
 
 // ...
 
-public function render($request, Throwable $exception)
-{
-    if ($exception instanceof PostTooLargeException) {
-        return redirect()->back()->withInput()->with('error', 'The uploaded file exceeds the maximum allowed size.');
-    }
+// public function render($request, Throwable $exception)
+// {
+//     if ($exception instanceof PostTooLargeException) {
+//         return redirect()->back()->withInput()->with('error', 'The uploaded file exceeds the maximum allowed size.');
+//     }
 
-    return parent::render($request, $exception);
-}
+//     return parent::render($request, $exception);
+// }
 
 
 }

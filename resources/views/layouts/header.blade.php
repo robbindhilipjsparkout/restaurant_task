@@ -55,6 +55,7 @@
                                 </ul>
                                 <div class="logo hidden-xs col-lg-12">
                                     <a href=""><img src="images/Home/logo.png"/></a>
+                                    <h6>FOODEQUE</h6>
                                 </div>
                                 <ul class="nav navbar-nav navbar-right">
                                     <li><a href="">service</a></li>

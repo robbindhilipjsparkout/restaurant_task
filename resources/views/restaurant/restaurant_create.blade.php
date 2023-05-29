@@ -16,6 +16,7 @@
 @include('layouts.style')
 @include('layouts.header')
 @include('layouts.specialblock') 
+@include('layouts.scriptvalidationjquery')
 
 
 
@@ -46,7 +47,7 @@
                         @csrf
 
                             <div class="form-group">
-                            <label for="delivery_service_type">Type</label>
+                            <label for="delivery_service_type">Type</label>  <span style="color: red;">*</span>
                             <select class="form-control selectpicker" name="delivery_service_type" id="delivery_service_type">
                             <option>--Select--</option>
                             @foreach( $deliverytypes as $deliverytype)
@@ -57,43 +58,51 @@
 
 
                             <div class="form-group">
+                            <label for="restaurant_name">Restaurant Name:</label> <span style="color: red;">*</span>
                             <input id="restaurant_name" type="text" class="form-control @error('title') is-invalid @enderror" name="restaurant_name" value="{{ old('restaurant_name') }}"  placeholder="restaurant_name">                           
-                            @error('restaurant_name')
+                            <!-- @error('restaurant_name')
                                 <div id="error" class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            @enderror -->
+                            <span id="restaurant_name_error" style="color: red;" class="error-message"></span>
                             </div>
 
 
 
                             <div class="form-group">
-                            <input id="email" type="email" class="form-control @error('title') is-invalid @enderror" name="email" value="{{ old('email') }}"  placeholder="email"> 
-                            @error('email')
+                            <label for="email">Email:</label> <span style="color: red;">*</span>
+                            <input id="email" type="text" class="form-control @error('title') is-invalid @enderror"  name="email" value="{{ old('email') }}"  placeholder="email"> 
+                            <!-- @error('email')
                                 <div   id="error"  class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            @enderror -->
+                            <span id="email_error" style="color: red;" class="error-message"></span>
                             </div>
-                            </div>
+                            
                             
      
                             <div class="form-group">
-                                <input id="mobile_number" type="tel" maxlength="10" class="form-control @error('title') is-invalid @enderror" name="mobile_number" value="{{ old('mobile_number') }}"  placeholder="mobile_number">
-                                @error('mobile_number')
+                            <label for="mobile_number">Mobile Number:</label> <span style="color: red;">*</span>
+                                <input id="mobile_number" type="text" maxlength="10" class="form-control @error('title') is-invalid @enderror" name="mobile_number" value="{{ old('mobile_number') }}"  placeholder="mobile_number">
+                                <!-- @error('mobile_number')
                                 <div   id="error"  class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            @enderror -->
+                            <span id="mobile_number_error" style="color: red;" class="error-message"></span>
                             </div>
 
 
 
                             <div class="form-group">
-                                <input id="secondary_mobile_number" type="tel"  maxlength="10"  class="form-control @error('title') is-invalid @enderror" name="secondary_mobile_number" value="{{ old('secondary_mobile_number') }}"  placeholder="secondary_mobile_number">
-                                @error('secondary_mobile_number')
+                            <label for="secondary_mobile_number">Secondary Mobile Number:</label>
+                              <input id="secondary_mobile_number" type="tel"  maxlength="10"  class="form-control @error('title') is-invalid @enderror" name="secondary_mobile_number" value="{{ old('secondary_mobile_number') }}"  placeholder="secondary_mobile_number"> 
+                                <!-- @error('secondary_mobile_number')
                                 <div   id="error" class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            @enderror -->
+                            <span id="secondary_mobile_number_error" style="color: red;" class="error-message"></span>
                             </div>
 
 
 
                             <div class="form-group">
-                            <label for="image">Select a image:</label>
+                            <label for="image">Select a image:</label> <span style="color: red;">*</span>
                                 <input id="restaurant_logo" type="file" class="form-control @error('image') is-invalid @enderror" name="restaurant_logo"  placeholder="restaurant_logo	">  
                              <!-- @error('restaurant_logo')
                                 <div  id="error"  class="alert alert-danger">{{ $message }}</div>
@@ -111,44 +120,52 @@
 
                                
                             <div class="form-group">
+                            <label for="restaurant_description">Restaurant Description:</label> <span style="color: red;">*</span>
                                 <textarea id="restaurant_description" class="form-control @error('restaurant_description') is-invalid @enderror" name="restaurant_description" value="{{ old('restaurant_description') }}"  placeholder="Type Here">
                                 </textarea>
-                                @error('restaurant_description')
+                                <!-- @error('restaurant_description')
                                 <div  id="error"  class="alert alert-danger">{{ $message }}</div>
-                                @enderror
+                                @enderror -->
+                                <span id="restaurant_description_error" style="color: red;" class="error-message"></span>
                             </div>
                        
 
 
                             <div class="form-group">
+                            <label for="restaurant_website">Restaurant Website:</label>
                                 <input id="restaurant_website" type="text" class="form-control @error('restaurant_website') is-invalid @enderror" name="restaurant_website" value="{{ old('restaurant_website') }}"  placeholder="restaurant_website">
-                                @error('restaurant_website')
+                                <!-- @error('restaurant_website')
                                 <div   id="error" class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            @enderror -->
+                            <span id="restaurant_website_error" style="color: red;" class="error-message"></span>
                             </div>
 
 
 
                             <div class="form-group">
+                            <label for="restaurant_address">Restaurant Address:</label> <span style="color: red;">*</span>
                                 <input id="restaurant_address" type="text" class="form-control @error('restaurant_address') is-invalid @enderror" name="restaurant_address" value="{{ old('restaurant_address') }}"  placeholder="restaurant_address">  
-                                @error('restaurant_address')
+                                <!-- @error('restaurant_address')
                                 <div   id="error"  class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            @enderror -->
+                            <span id="restaurant_address_error" style="color: red;" class="error-message"></span>
                             </div>
 
                             
     
                             <div class="form-group">
+                            <label for="gst_number">GST Number:</label> <span style="color: red;">*</span>
                                 <input id="gst_number" type="text" class="form-control @error('gst_number') is-invalid @enderror" name="gst_number" value="{{ old('gst_number') }}"  placeholder="gst_number">
-                                @error('gst_number')
+                                <!-- @error('gst_number')
                                 <div  id="error"  class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+                            @enderror -->
+                            <span id="gst_number_error" style="color: red;" class="error-message"></span>
                             </div>
 
 
 
                             <div class="form-group">
-                            <label for="status">Status:</label>
+                            <label for="status">Status:</label> <span style="color: red;">*</span>
                             <select class="form-control selectpicker" name="status" id="status">
                             <option>--Select--</option>
                             @foreach( $restaurantstatus as $status)
@@ -157,14 +174,15 @@
                             </select>   
                             </div>
 
-
-                                <button type="submit" class="btn login-form__btn submit ">
+                            <br>  
+                                <button type="submit" id="submitBtn" class="btn btn-primary login-form__btn submit">
                                     {{ __('Create ') }}
-                                </button><br><br>
+                                </button>
 
-                                <a href="{{url('restaurant')}}" class="color:white">  <button type="button" class="btn btn-primary" style="margin-bottom:100px" >  {{ __('Back') }}
+                                <a href="{{url('restaurant')}}" class="color:white">  <button type="button" class="btn btn-primary" >  {{ __('Back') }}
                                 </button> </a>
-                      
+                                <button type="button" class="btn btn-primary" style="margin-left:150px" id="clearButton">Clear</button>
+                      <br><br>   <br><br>   <br><br>   <br><br>   <br><br>  
                     </form>
                 </div>
                             </div>
@@ -174,40 +192,4 @@
             </div>
         </div>
       
-    </div>
-
-    <script>
-$(document).ready(function() {
-    $('#myForm').submit(function(e) {
-        e.preventDefault(); // Prevent form submission
-
-        // Clear existing error message
-        $('#restaurant_logo_error').empty();
-
-        // Perform image validation
-        var valid = true;
-
-        // Example validation for the 'restaurant_logo' field
-        var restaurantLogo = $('#restaurant_logo')[0].files[0];
-        if (!restaurantLogo) {
-            $('#restaurant_logo_error').text('Restaurant Logo is required.');
-            valid = false;
-        } else {
-            var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
-            if (!allowedExtensions.exec(restaurantLogo.name)) {
-                $('#restaurant_logo_error').text('Invalid file type. Only JPG, JPEG, and PNG files are allowed.');
-                valid = false;
-            } else if (restaurantLogo.size > 2048 * 1024) {
-                $('#restaurant_logo_error').text('File size exceeds the maximum limit of 2MB.');
-                valid = false;
-            }
-        }
-
-        // Submit the form if validation passes
-        if (valid) {
-            $('#myForm').off('submit').submit();
-        }
-    });
-});
-</script>
-
+</div>
