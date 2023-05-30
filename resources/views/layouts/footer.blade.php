@@ -53,7 +53,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="copyright">
-                            © 2017 All right reserved. Designed by <a href="http://www.themevault.net/" target="_blank">ThemeVault.</a>
+                            © 2017 All right reserved.
+                             <!-- Designed by
+                             <a href="http://www.themevault.net/" target="_blank">ThemeVault.</a> -->
                         </div>
                     </div>
                 </div>

@@ -26,7 +26,10 @@ class CustomValidationRule implements Rule
      */
     public function passes($attribute, $value)
     {
-        return !Restaurant::where('restaurant_name', $value)->exists();
+        return Restaurant::where('restaurant_name', $value)->exists();
+         //return preg_match('/^[A-Za-z\s]+$/', $value);
+
+        return $value === 'restaurant';
     }
 
     /**
@@ -36,6 +39,6 @@ class CustomValidationRule implements Rule
      */
     public function message()
     {
-        return 'The restaurant name must be unique.';
+        return 'The restaurant name must only contain letters and spaces.';
     }
 }
