@@ -105,7 +105,7 @@ h6{
 }
 
 a{
-    // color: rgba(0,0,0,0.9);
+    color: rgba(0,0,0,0.9);
 }
 a, a:hover, a:focus, button:hover, button:focus {
     outline: 0 none !important;
@@ -409,9 +409,10 @@ li.dropdown{
     opacity: 1;
     transform: translateY(0px);
 }
-.event-image {
-    /*min-height: 222px;*/
-}
+/* .event-image {
+    /*min-height: 222px;
+} */
+
 /*tab*/
 .pos-center {
     text-align: center;
@@ -487,12 +488,23 @@ button.close:hover {
     margin-top: 135px;
     padding: 65px 0;
 }
+
+
+/* create restaurant form */
+#form-group .form-control{
+    border: none;
+    background: rgba(255,255,255,0.7);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.7);
+    border-top:none;
+
+
+}
 /*contact input box*/
 #contactForm .form-control {
     background: rgba(255,255,255,0.7);
     background-image: none;
     border: none;
-    // border: 1px solid rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(0, 0, 0, 0.7);
     border-radius: 0;
     box-shadow: none;
     color: #000;
@@ -505,6 +517,7 @@ button.close:hover {
     transition: none 0s ease 0s ;
     width: 100%;
 }
+
 #contactForm #message, #contactForm #message1 {
     height: 185px;
     padding-top: 20px;
@@ -684,7 +697,7 @@ button.close:hover {
     text-shadow: 0 0 0;
 }
 .service-image {
-    // min-height: 216px;
+     min-height: 216px;
     margin-top: 30px;
 }
 

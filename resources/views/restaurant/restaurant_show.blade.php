@@ -1,5 +1,5 @@
 
-@include('layouts.script')
+
 @include('layouts.style')
 @include('layouts.header')
 @include('layouts.spblock2')  
@@ -38,10 +38,9 @@ margin-right:45px;
     margin-top:-15px; 
 
 }
+</style>
 
-
-
-        </style>
+        
         </head>
 
 <br>
@@ -74,7 +73,7 @@ margin-right:45px;
                                     <table class="table table-bordered table-hover "id="myTable" >
                                         <thead class=>
 
-        <tr>
+     
 
         <th scope="col" class="text-center bg-danger rounded-2 text-wrap text-uppercase">Sno:</th>
         <!-- <th scope="col" class="text-center bg-danger rounded-2 text-wrap text-uppercase">service<br>type</th> -->
@@ -98,6 +97,8 @@ margin-right:45px;
 
 
     @foreach($restaurants as $restaurant)
+    
+       
         <tr>
         <td>{{$restaurant->id}}</td>
       <!-- <td>{{$restaurant->delivery_service_type}} -->
@@ -111,6 +112,7 @@ margin-right:45px;
         <td>{{$restaurant->restaurant_address}}</td>  
         <td>{{$restaurant->gst_number}}</td> 
         <td>{{$restaurant->status}}</td>  
+     
     
 
         <td><span>
@@ -134,44 +136,48 @@ margin-right:45px;
   
             <!-- <div class="modal-footer"> -->
          
-                  <form action="{{route('restaurantupdate',$restaurant->id)}}" method="POST" id="update-text-form" enctype="multipart/form-data">
+                  <form action="{{route('restaurantupdate',$restaurant->id)}}" method="POST" class="login-input" id="myForm" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     
                    
                                         <input id="restaurant_name" value="{{ $restaurant->restaurant_name }}" type="text" class="form-control @error('title') is-invalid @enderror" name="restaurant_name" value="{{ old('restaurant_name') }}" placeholder="restaurant_name">
-                                        @error('restaurant_name')
+                                        <!-- @error('restaurant_name')
                                         <div id="error" class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        @enderror -->
+                                        <span id="restaurant_name_error" style="color: red;" class="error-message"></span> 
                                         <br>
 
                                         <label for="image">Select an image:</label>
                                         <img src="{{asset('images/'. $restaurant->restaurant_logo)}}" width="100px" height="100px" class="rounded border"><br><br>
                                         <input id="restaurant_logo" type="file" class="form-control @error('image') is-invalid @enderror" name="restaurant_logo" placeholder="restaurant_logo">
-                                        @error('restaurant_logo')
+                                        <!-- @error('restaurant_logo')
                                         <div id="error" class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
-                                        <br>
+                                        @enderror -->
+                                        <span id="imageError" ></span>
+                                         <span id="restaurant_logo_error" style="color: red;" class="error-message"></span>
+
+                                        <br><br>
                                         
                                         <textarea id="restaurant_description" class="form-control @error('restaurant_description') is-invalid @enderror" name="restaurant_description">{{$restaurant->restaurant_description}} </textarea>
-                                        @error('restaurant_description')
+                                        <!-- @error('restaurant_description')
                                         <div id="error" class="alert alert-danger">{{ $message }}</div>
-                                        @enderror
+                                        @enderror -->
+                                        <span id="restaurant_description_error" style="color: red;" class="error-message"></span>
                                         <br>
 
                                   
                                         <label for="status">Current Status:  {{$restaurant->status}}</label>
                                         <select class="form-control selectpicker" name="status" id="status">
-                                       
                                         <option>--Select--</option>
                                         @foreach( $restaurantstatus as $status)
-                                       <option value="{{$status->status}}">{{$status->status}}</option>                     
+                                        <option value="{{$status->status}}">{{$status->status}}</option>                     
                                         @endforeach
                                         </select>
                                 
 
                                <br><br>
-                    <button type="submit" class="btn btn-danger" >Edit</button>
+                    <button type="submit" id="submitBtn" class="login-form__btn submit btn btn-danger" >Edit</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
 
                     </form>
@@ -238,6 +244,9 @@ margin-right:45px;
 
 
 
+  @include('layouts.script')
+
+  <!-- @include('layouts.scriptvalidationjquery') -->
 
                     <script>
 $(document).ready(function() {
@@ -258,15 +267,11 @@ $(document).ready(function() {
     // More options...
   });
 });
-
-
 </script>
 
 
-<!-- 
- <script>
-    $(document).ready(function () {
-    $('#myTable').DataTable();
-});
-    </script>  -->
-    
+
+
+
+
+

@@ -44,7 +44,7 @@ Route::controller(RestaurantController::class)->group(function(){
 
     Route::put('/restaurantupdate/{id}',  'update')->name('restaurantupdate');
 
-     Route::delete('restaurantdelete/{id}',  'destroy')->name('restaurantdelete');
+    Route::delete('restaurantdelete/{id}',  'destroy')->name('restaurantdelete');
 
 });
 
